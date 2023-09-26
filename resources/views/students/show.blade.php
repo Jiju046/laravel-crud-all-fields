@@ -15,7 +15,7 @@
                 <p class="card-text"><strong>Skills:</strong> {{ $student->skills }}</p>
                 <p class="card-text"><strong>Gender:</strong> {{ $student->gender }}</p>
                 <p class="card-text"><strong>Appointment:</strong> {{ $student->appointment }}</p>
-                <p class="card-text"><strong>City:</strong> {{ $student->city }}</p>
+                <p class="card-text"><strong>City:</strong> {{ $student->city->city }}</p>
                 <p class="card-text"><strong>Address:</strong> {{ $student->address }}</p>
 
             </div>

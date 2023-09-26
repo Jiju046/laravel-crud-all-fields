@@ -2,41 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Students;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreStudentRequest;
 
 class StudentController extends Controller
 {
-    private $cities = [
-        'coimbatore' => 'Coimbatore',
-        'bangalore' => 'Bangalore',
-        'chennai' => 'Chennai',
-        'hyderabad' => 'Hyderabad'
-    ];
-    private $validationRules;
-
-    public function __construct()
-    {
-
-        $this->validationRules =
-            [
-                'name' => 'required',
-                'email' => 'required|email',
-                'skills' => 'required|array|min:1',
-                'gender' => 'required|in:male,female,others',
-                'appointment' => 'required',
-                'city' => 'required|in:' . implode(',', array_keys($this->cities)),
-                'address' => 'required|max:200'
-
-            ];
-    }
-
-
     //storing all rows from db
     public function index()
     {
-
-        $students = Students::all();
+        $students = Students::with('city')->get();
         return view('students.index', compact('students')); //pass one or more variable
     }
 
@@ -44,7 +19,7 @@ class StudentController extends Controller
     public function create()
     {
         $student = new Students();
-        $cities = $this->cities;
+        $cities = City::pluck('city','id');
         return view('students.create', compact('student', 'cities'));
     }
 
@@ -56,22 +31,19 @@ class StudentController extends Controller
 
     // view update
     public function edit(Students $student)
-    { //to view old data  type hint will automatically take id from url
-        
-        $cities = $this->cities;
+    { 
+        $cities = City::pluck('city','id');
         $student->skills = explode(', ', $student->skills);
-        $cityValue = $student->city;
+        $cityValue = $student->city_id;
 
         return view('students.edit', compact('student', 'cities', 'cityValue'));
     }
 
 
     // insert new data
-    public function store(Request $request)
-    { //to create data
-
-        $request->validate($this->validationRules);
-
+    public function store(StoreStudentRequest $request)
+    { 
+        
         $student = new Students($request -> all());
         $student->skills = implode(', ', $request['skills']); // Implode skills array
         $student->save();
@@ -80,14 +52,11 @@ class StudentController extends Controller
     }
 
     // update db
-    public function update(Request $request, Students $student)
+    public function update(StoreStudentRequest $request, Students $student)
     {
-        // Validate the input
-        $request->validate($this->validationRules);
-
+    
         $student->fill($request->except('skills')); // Exclude skills from request
-        $student->skills = implode(', ', $request->input('skills')); // Implode skills array
-
+        $student->skills = implode(', ', $request->input('skills')); // Implode skills array    
         $student->save();
 
         return redirect()->route('students.index')->with('success', 'Updated successfully');

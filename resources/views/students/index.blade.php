@@ -39,7 +39,7 @@
                         <td>{{ $student->skills }}</td>
                         <td>{{ $student->gender }}</td>
                         <td>{{ \Carbon\Carbon::parse($student->appointment)-> format('d-m-Y') }}</td>
-                        <td>{{ $student->city }}</td>
+                        <td>{{ $student->city->city }}</td> <!--from relationship method-->
                         <td>{{ $student->address }}</td>
 
                         <td style="width:100px">

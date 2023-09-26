@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\City;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Students extends Model
 {
@@ -11,11 +12,15 @@ class Students extends Model
 
     protected $fillable = [
         'name',
+        'city_id',
         'email',
         'skills',
         'gender',
         'appointment',
-        'city',
         'address'
     ];
+
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }

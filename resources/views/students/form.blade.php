@@ -45,6 +45,7 @@
                     {!! Form::label('javascript', 'JavaScript', ['class' => 'form-check-label']) !!}
                 </div>
             </div>          
+            
 
             @error('skills')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -85,10 +86,10 @@
 
         {{-- city --}}
         <div class="mb-3">
-            {!! Form::label('city','City', ['class' => 'form-label']) !!}
-            {!! Form::select('city', $cities, $cityvalue, ['class' => 'form-control', 'placeholder' => 'Choose']) !!}
+            {!! Form::label('city_id','City', ['class' => 'form-label']) !!}
+            {!! Form::select('city_id', $cities, $cityvalue, ['class' => 'form-control', 'placeholder' => 'Choose']) !!}
 
-            @error('city')
+            @error('city_id')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
@@ -103,5 +104,5 @@
             @enderror
         </div>
 
-        {!! Form::submit($student ? 'Update' : 'Submit', ['class' => 'btn', 'style' => 'background-color:#576CBC; color:white' ]) !!}
+        {!! Form::submit('Submit', ['class' => 'btn', 'style' => 'background-color:#576CBC; color:white' ]) !!}
     </div>
