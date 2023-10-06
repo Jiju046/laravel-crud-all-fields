@@ -14,16 +14,16 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('city');
+            $table->string('city_name');
             $table->timestamps();
         });
 
         DB::table('cities')->insert([
-            ['city' => 'Coimbatore'],
-            ['city' => 'Chennai'],
-            ['city' => 'Bangalore'],
-            ['city' => 'Madurai'],
-            ['city' => 'Hyderabad'],
+            ['city_name' => 'Coimbatore'],
+            ['city_name' => 'Chennai'],
+            ['city_name' => 'Bangalore'],
+            ['city_name' => 'Madurai'],
+            ['city_name' => 'Hyderabad'],
         ]);
     }
 

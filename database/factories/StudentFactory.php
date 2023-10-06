@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Students>
  */
-class StudentsFactory extends Factory
+class StudentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,8 +21,8 @@ class StudentsFactory extends Factory
             "email" => $this->faker->unique()->safeEmail(),
             'skills' => $this->faker->randomElement(['c++', 'java', 'python', 'javascript']),
             'gender' => $this->faker->randomElement(['male', 'female']),
-            'appointment' => $this->faker->date($format = 'Y-m-d', $min = 'now'),
-            'city' => $this->faker->randomElement(['Coimbatore', 'Chennai','Bangalore','Hyderabad']),
+            'appointment' => $this->faker->dateTimeBetween('now', '+30 days')->format('Y-m-d'),
+            'city_id' => $this->faker->randomElement(['1', '2','3','4']),
             "address" => $this ->faker->address(),
             "created_at" => now()
         ];
